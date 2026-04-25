@@ -2,7 +2,7 @@
 
 header("Content-Type: application/json");
 
-$secret = "6Ldne8ksAAAAAOOWzerrEXr9f0Zav0J9jvaXQwQ7";
+$secret = "6LdticksAAAAAHIegpwpH69Zks_miOR4_ZlG43Q4";
 $responseToken = $_POST['g-recaptcha-response'] ?? '';
 
 if (!$responseToken) {

@@ -7,7 +7,6 @@
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #f4f4f4;
@@ -31,9 +30,20 @@
       border-left: 4px solid #D0021B;
       padding-left: 12px;
     }
-    .form-row { display: flex; gap: 16px; margin-bottom: 16px; }
-    .form-row2 { margin-bottom: 16px; }
-    .form-group { display: flex; flex-direction: column; flex: 1; gap: 5px; }
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-row2 {
+      margin-bottom: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 5px;
+    }
     label {
       font-size: 12px;
       font-weight: 600;
@@ -53,9 +63,16 @@
       width: 100%;
       box-sizing: border-box;
     }
-    input:focus, select:focus { border-color: #D0021B; background: #fff; }
-    input::placeholder { color: #bbb; }
-    .select-wrap, .date-wrap { position: relative; }
+    input:focus, select:focus {
+      border-color: #D0021B;
+      background: #fff;
+    }
+    input::placeholder {
+      color: #bbb;
+    }
+    .select-wrap, .date-wrap {
+      position: relative;
+    }
     .date-wrap svg {
       position: absolute;
       left: 10px;
@@ -64,17 +81,30 @@
       color: #888;
       pointer-events: none;
     }
-    .date-wrap input { padding-left: 32px; }
+    .date-wrap input {
+      padding-left: 32px;
+    }
     .error-msg {
       display: none;
       color: #D0021B;
       font-size: 11px;
       margin-top: 2px;
     }
-    .recaptcha-wrap { margin: 16px 0; }
+    .recaptcha-wrap {
+      margin: 16px 0 8px 0;
+    }
+    .alert {
+      display: none;
+      padding: 10px 14px;
+      border-radius: 5px;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .alert.success { background: #e0f7ea; color: #1a7a3f; border: 1px solid #b2dfcc; }
+    .alert.error   { background: #ffe0e0; color: #a80016; border: 1px solid #f5c6c6; }
     .btn-confirm {
       width: 100%;
-      margin-top: 4px;
+      margin-top: 8px;
       padding: 11px;
       background: #D0021B;
       color: #fff;
@@ -87,15 +117,6 @@
     }
     .btn-confirm:hover { background: #a80016; }
     .btn-confirm:disabled { background: #ccc; cursor: not-allowed; }
-    .alert {
-      display: none;
-      padding: 10px 14px;
-      border-radius: 5px;
-      font-size: 13px;
-      margin-bottom: 14px;
-    }
-    .alert.success { background: #e0f7ea; color: #1a7a3f; border: 1px solid #b2dfcc; }
-    .alert.error { background: #ffe0e0; color: #a80016; border: 1px solid #f5c6c6; }
   </style>
 </head>
 <body>
@@ -186,9 +207,9 @@
         </div>
       </div>
 
-      <!-- reCAPTCHA v2 — pon aquí tu Site Key nueva -->
+      <!-- reCAPTCHA v2 -->
       <div class="recaptcha-wrap">
-        <div class="g-recaptcha" data-sitekey="6Ldne8ksAAAAAAb6-TeatxAULJtDXLMPCRfpTQQe"></div>
+        <div class="g-recaptcha" data-sitekey="6LfdhMksAAAAADr9G79xPrek7LHhvzEttLvs3h4e"></div>
         <span class="error-msg" id="errCaptcha" style="display:none;">Confirma que no eres un robot.</span>
       </div>
 
