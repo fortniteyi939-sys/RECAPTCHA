@@ -30,20 +30,9 @@
       border-left: 4px solid #D0021B;
       padding-left: 12px;
     }
-    .form-row {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    .form-row2 {
-      margin-bottom: 16px;
-    }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      gap: 5px;
-    }
+    .form-row { display: flex; gap: 16px; margin-bottom: 16px; }
+    .form-row2 { margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; flex: 1; gap: 5px; }
     label {
       font-size: 12px;
       font-weight: 600;
@@ -63,16 +52,9 @@
       width: 100%;
       box-sizing: border-box;
     }
-    input:focus, select:focus {
-      border-color: #D0021B;
-      background: #fff;
-    }
-    input::placeholder {
-      color: #bbb;
-    }
-    .select-wrap, .date-wrap {
-      position: relative;
-    }
+    input:focus, select:focus { border-color: #D0021B; background: #fff; }
+    input::placeholder { color: #bbb; }
+    .select-wrap, .date-wrap { position: relative; }
     .date-wrap svg {
       position: absolute;
       left: 10px;
@@ -81,18 +63,8 @@
       color: #888;
       pointer-events: none;
     }
-    .date-wrap input {
-      padding-left: 32px;
-    }
-    .error-msg {
-      display: none;
-      color: #D0021B;
-      font-size: 11px;
-      margin-top: 2px;
-    }
-    .recaptcha-wrap {
-      margin: 16px 0 8px 0;
-    }
+    .date-wrap input { padding-left: 32px; }
+    .recaptcha-wrap { margin: 16px 0 8px 0; }
     .alert {
       display: none;
       padding: 10px 14px;
@@ -117,6 +89,12 @@
     }
     .btn-confirm:hover { background: #a80016; }
     .btn-confirm:disabled { background: #ccc; cursor: not-allowed; }
+    .captcha-error {
+      display: none;
+      color: #D0021B;
+      font-size: 11px;
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
@@ -125,18 +103,16 @@
 
     <div id="alertBox" class="alert"></div>
 
-    <form id="formservi1">
+    <form id="formservi1" novalidate>
 
       <div class="form-row">
         <div class="form-group">
           <label for="fieldNombre">Nombre</label>
-          <input type="text" id="fieldNombre" placeholder="Juan Pérez" />
-          <span class="error-msg" id="errNombre">Ingresa tu nombre.</span>
+          <input type="text" id="fieldNombre" placeholder="Juan Pérez" required />
         </div>
         <div class="form-group">
           <label for="fieldTelefono">Teléfono</label>
-          <input type="tel" id="fieldTelefono" placeholder="956 123 456" />
-          <span class="error-msg" id="errTelefono">Ingresa tu teléfono.</span>
+          <input type="tel" id="fieldTelefono" placeholder="956 123 456" required />
         </div>
       </div>
 
@@ -144,7 +120,7 @@
         <div class="form-group">
           <label for="modeloVehiculo">Modelo</label>
           <div class="select-wrap">
-            <select id="modeloVehiculo">
+            <select id="modeloVehiculo" required>
               <option value="" disabled selected>Selecciona modelo</option>
               <option value="125">Hilux</option>
               <option value="129">Yaris</option>
@@ -156,20 +132,17 @@
               <option value="131">Otros Modelos</option>
             </select>
           </div>
-          <span class="error-msg" id="errModelo">Selecciona un modelo.</span>
         </div>
         <div class="form-group">
           <label for="fieldPlaca">Placa</label>
-          <input type="text" id="fieldPlaca" placeholder="ABC-123" />
-          <span class="error-msg" id="errPlaca">Ingresa la placa.</span>
+          <input type="text" id="fieldPlaca" placeholder="ABC-123" required />
         </div>
       </div>
 
       <div class="form-row2">
         <div class="form-group">
           <label for="fieldComentario">Servicio</label>
-          <input type="text" id="fieldComentario" placeholder="Escribe tu servicio" />
-          <span class="error-msg" id="errServicio">Describe el servicio.</span>
+          <input type="text" id="fieldComentario" placeholder="Escribe tu servicio" required />
         </div>
       </div>
 
@@ -183,14 +156,13 @@
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            <input type="date" id="fecha" />
+            <input type="date" id="fecha" required />
           </div>
-          <span class="error-msg" id="errFecha">Selecciona una fecha.</span>
         </div>
         <div class="form-group">
           <label for="fieldhora">Horario</label>
           <div class="select-wrap">
-            <select id="fieldhora">
+            <select id="fieldhora" required>
               <option value="" disabled selected>Selecciona hora</option>
               <option value="08:00 AM">08:00 AM</option>
               <option value="09:00 AM">09:00 AM</option>
@@ -203,17 +175,16 @@
               <option value="05:00 PM">05:00 PM</option>
             </select>
           </div>
-          <span class="error-msg" id="errHora">Selecciona un horario.</span>
         </div>
       </div>
 
       <!-- reCAPTCHA v2 -->
       <div class="recaptcha-wrap">
         <div class="g-recaptcha" data-sitekey="6LfdhMksAAAAADr9G79xPrek7LHhvzEttLvs3h4e"></div>
-        <span class="error-msg" id="errCaptcha" style="display:none;">Confirma que no eres un robot.</span>
+        <span class="captcha-error" id="errCaptcha">Confirma que no eres un robot.</span>
       </div>
 
-      <button type="button" id="btnConfirmar" class="btn-confirm">Confirmar Cita</button>
+      <button type="submit" class="btn-confirm">Confirmar Cita</button>
 
     </form>
   </div>
@@ -221,71 +192,53 @@
   <script>
     document.getElementById('fecha').setAttribute('min', new Date().toISOString().split('T')[0]);
 
-    $(document).ready(function () {
-      $('#btnConfirmar').on('click', function () {
+    $('#formservi1').on('submit', function (e) {
+      e.preventDefault();
 
-        var valido = true;
+      // Validar reCAPTCHA
+      var token = grecaptcha.getResponse();
+      if (token === '') {
+        $('#errCaptcha').show();
+        return;
+      }
+      $('#errCaptcha').hide();
 
-        var campos = [
-          { id: 'fieldNombre',     err: 'errNombre'   },
-          { id: 'fieldTelefono',   err: 'errTelefono' },
-          { id: 'modeloVehiculo',  err: 'errModelo'   },
-          { id: 'fieldPlaca',      err: 'errPlaca'    },
-          { id: 'fieldComentario', err: 'errServicio' },
-          { id: 'fecha',           err: 'errFecha'    },
-          { id: 'fieldhora',       err: 'errHora'     }
-        ];
+      // Validar campos con validación nativa del navegador
+      var form = document.getElementById('formservi1');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
 
-        campos.forEach(function (c) {
-          if ($('#' + c.id).val().trim() === '') {
-            $('#' + c.id).css('border-color', '#D0021B');
-            $('#' + c.err).show();
-            valido = false;
-          } else {
-            $('#' + c.id).css('border-color', '#ddd');
-            $('#' + c.err).hide();
-          }
-        });
+      $('#btnConfirmar').prop('disabled', true);
+      $('.btn-confirm').text('Enviando...').prop('disabled', true);
 
-        var token = grecaptcha.getResponse();
-        if (token === '') {
-          $('#errCaptcha').show();
-          valido = false;
-        } else {
-          $('#errCaptcha').hide();
+      $.ajax({
+        url: '/crmv1_dash/app/register',
+        method: 'POST',
+        data: {
+          nombre:   $('#fieldNombre').val(),
+          telefono: $('#fieldTelefono').val(),
+          modelo:   $('#modeloVehiculo').val(),
+          placa:    $('#fieldPlaca').val(),
+          servicio: $('#fieldComentario').val(),
+          fecha:    $('#fecha').val(),
+          hora:     $('#fieldhora').val(),
+          'g-recaptcha-response': token
+        },
+        success: function () {
+          $('#alertBox').removeClass('error').addClass('alert success')
+            .text('¡Cita confirmada! Te contactaremos pronto.').show();
+          $('#formservi1')[0].reset();
+          grecaptcha.reset();
+          $('.btn-confirm').text('Confirmar Cita').prop('disabled', false);
+        },
+        error: function () {
+          $('#alertBox').removeClass('success').addClass('error alert')
+            .text('Error al enviar. Intenta de nuevo.').show();
+          grecaptcha.reset();
+          $('.btn-confirm').text('Confirmar Cita').prop('disabled', false);
         }
-
-        if (!valido) return;
-
-        $('#btnConfirmar').prop('disabled', true).text('Enviando...');
-
-        $.ajax({
-          url: '/crmv1_dash/app/register',
-          method: 'POST',
-          data: {
-            nombre:   $('#fieldNombre').val(),
-            telefono: $('#fieldTelefono').val(),
-            modelo:   $('#modeloVehiculo').val(),
-            placa:    $('#fieldPlaca').val(),
-            servicio: $('#fieldComentario').val(),
-            fecha:    $('#fecha').val(),
-            hora:     $('#fieldhora').val(),
-            'g-recaptcha-response': token
-          },
-          success: function () {
-            $('#alertBox').removeClass('error').addClass('alert success')
-              .text('¡Cita confirmada! Te contactaremos pronto.').show();
-            $('#formservi1')[0].reset();
-            grecaptcha.reset();
-            $('#btnConfirmar').prop('disabled', false).text('Confirmar Cita');
-          },
-          error: function () {
-            $('#alertBox').removeClass('success').addClass('error alert')
-              .text('Error al enviar. Intenta de nuevo.').show();
-            grecaptcha.reset();
-            $('#btnConfirmar').prop('disabled', false).text('Confirmar Cita');
-          }
-        });
       });
     });
   </script>
