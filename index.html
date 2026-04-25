@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <title>Captcha v2</title>
+</head>
+<body>
+
+  <form id="miFormulario">
+    <div class="g-recaptcha" data-sitekey="6LeOMbwsAAAAHGzyWJn_Ic23_I2I29UM-CzMQP_e"></div>
+    <input type="text" name="name" placeholder="Enter name">
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    $("#miFormulario").submit(function (e) {
+      e.preventDefault();
+
+      // Solicitar el token del captcha
+      var captcha = grecaptcha.getResponse();
+
+      // verificar token del captcha
+      if (captcha.length === 0) {
+        alert("Por favor complete el captcha");
+        return;
+      }
+
+      var formData = new FormData(this);
+      formData.append("g-recaptcha-response", captcha);
+
+      // enviar el formulario
+      $.ajax({
+        url: "/crmv1_dash/app/register",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          if (data.success) {
+            grecaptcha.reset();
+          } else {
+            alert("No se pudo registrar");
+          }
+        },
+        error: function (error) {
+          alert("Error al enviar el formulario");
+          console.log(error);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
