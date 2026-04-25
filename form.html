@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agenda tu Cita</title>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -30,9 +29,20 @@
       border-left: 4px solid #D0021B;
       padding-left: 12px;
     }
-    .form-row { display: flex; gap: 16px; margin-bottom: 16px; }
-    .form-row2 { margin-bottom: 16px; }
-    .form-group { display: flex; flex-direction: column; flex: 1; gap: 5px; }
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-row2 {
+      margin-bottom: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 5px;
+    }
     label {
       font-size: 12px;
       font-weight: 600;
@@ -52,9 +62,16 @@
       width: 100%;
       box-sizing: border-box;
     }
-    input:focus, select:focus { border-color: #D0021B; background: #fff; }
-    input::placeholder { color: #bbb; }
-    .select-wrap, .date-wrap { position: relative; }
+    input:focus, select:focus {
+      border-color: #D0021B;
+      background: #fff;
+    }
+    input::placeholder {
+      color: #bbb;
+    }
+    .select-wrap, .date-wrap {
+      position: relative;
+    }
     .date-wrap svg {
       position: absolute;
       left: 10px;
@@ -63,17 +80,22 @@
       color: #888;
       pointer-events: none;
     }
-    .date-wrap input { padding-left: 32px; }
-    .recaptcha-wrap { margin: 16px 0 8px 0; }
-    .alert {
-      display: none;
-      padding: 10px 14px;
-      border-radius: 5px;
-      font-size: 13px;
-      margin-bottom: 14px;
+    .date-wrap input {
+      padding-left: 32px;
     }
-    .alert.success { background: #e0f7ea; color: #1a7a3f; border: 1px solid #b2dfcc; }
-    .alert.error   { background: #ffe0e0; color: #a80016; border: 1px solid #f5c6c6; }
+    .recaptcha-wrap {
+      margin: 16px 0 8px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .captcha-error {
+      display: none;
+      color: #D0021B;
+      font-size: 12px;
+      margin-top: 4px;
+    }
     .btn-confirm {
       width: 100%;
       margin-top: 8px;
@@ -87,32 +109,28 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .btn-confirm:hover { background: #a80016; }
-    .btn-confirm:disabled { background: #ccc; cursor: not-allowed; }
-    .captcha-error {
-      display: none;
-      color: #D0021B;
-      font-size: 11px;
-      margin-top: 4px;
+    .btn-confirm:hover {
+      background: #a80016;
+    }
+    .btn-confirm:disabled {
+      background: #ccc;
+      cursor: not-allowed;
     }
   </style>
 </head>
 <body>
   <div class="card">
     <h2>Agenda tu Cita</h2>
-
-    <div id="alertBox" class="alert"></div>
-
-    <form id="formservi1" novalidate>
+    <form id="formservi1" class="needs-validation" action="" method="POST">
 
       <div class="form-row">
         <div class="form-group">
           <label for="fieldNombre">Nombre</label>
-          <input type="text" id="fieldNombre" placeholder="Juan Pérez" required />
+          <input type="text" id="fieldNombre" name="nombre" placeholder="Juan Pérez" required />
         </div>
         <div class="form-group">
           <label for="fieldTelefono">Teléfono</label>
-          <input type="tel" id="fieldTelefono" placeholder="956 123 456" required />
+          <input type="tel" id="fieldTelefono" name="telefono" placeholder="956 123 456" required />
         </div>
       </div>
 
@@ -120,7 +138,7 @@
         <div class="form-group">
           <label for="modeloVehiculo">Modelo</label>
           <div class="select-wrap">
-            <select id="modeloVehiculo" required>
+            <select id="modeloVehiculo" name="modelo" required>
               <option value="" disabled selected>Selecciona modelo</option>
               <option value="125">Hilux</option>
               <option value="129">Yaris</option>
@@ -135,14 +153,14 @@
         </div>
         <div class="form-group">
           <label for="fieldPlaca">Placa</label>
-          <input type="text" id="fieldPlaca" placeholder="ABC-123" required />
+          <input type="text" id="fieldPlaca" name="placa" placeholder="ABC-123" required />
         </div>
       </div>
 
       <div class="form-row2">
         <div class="form-group">
           <label for="fieldComentario">Servicio</label>
-          <input type="text" id="fieldComentario" placeholder="Escribe tu servicio" required />
+          <input type="text" id="fieldComentario" name="servicio" placeholder="Escribe tu servicio" required />
         </div>
       </div>
 
@@ -156,13 +174,13 @@
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            <input type="date" id="fecha" required />
+            <input type="date" id="fecha" name="fecha" required />
           </div>
         </div>
         <div class="form-group">
           <label for="fieldhora">Horario</label>
           <div class="select-wrap">
-            <select id="fieldhora" required>
+            <select id="fieldhora" name="hora" required>
               <option value="" disabled selected>Selecciona hora</option>
               <option value="08:00 AM">08:00 AM</option>
               <option value="09:00 AM">09:00 AM</option>
@@ -178,7 +196,7 @@
         </div>
       </div>
 
-      <!-- reCAPTCHA v2 -->
+      <!-- reCAPTCHA -->
       <div class="recaptcha-wrap">
         <div class="g-recaptcha" data-sitekey="6LfdhMksAAAAADr9G79xPrek7LHhvzEttLvs3h4e"></div>
         <span class="captcha-error" id="errCaptcha">Confirma que no eres un robot.</span>
@@ -190,12 +208,20 @@
   </div>
 
   <script>
+    // Fecha mínima hoy
     document.getElementById('fecha').setAttribute('min', new Date().toISOString().split('T')[0]);
 
     $('#formservi1').on('submit', function (e) {
       e.preventDefault();
 
-      // Validar reCAPTCHA
+      // 1. Validar campos con validación nativa del navegador
+      var form = document.getElementById('formservi1');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // 2. Validar reCAPTCHA
       var token = grecaptcha.getResponse();
       if (token === '') {
         $('#errCaptcha').show();
@@ -203,15 +229,9 @@
       }
       $('#errCaptcha').hide();
 
-      // Validar campos con validación nativa del navegador
-      var form = document.getElementById('formservi1');
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      $('#btnConfirmar').prop('disabled', true);
-      $('.btn-confirm').text('Enviando...').prop('disabled', true);
+      // 3. Enviar
+      var btn = $('.btn-confirm');
+      btn.prop('disabled', true).text('Enviando...');
 
       $.ajax({
         url: '/crmv1_dash/app/register',
@@ -227,17 +247,15 @@
           'g-recaptcha-response': token
         },
         success: function () {
-          $('#alertBox').removeClass('error').addClass('alert success')
-            .text('¡Cita confirmada! Te contactaremos pronto.').show();
+          alert('¡Cita confirmada! Te contactaremos pronto.');
           $('#formservi1')[0].reset();
           grecaptcha.reset();
-          $('.btn-confirm').text('Confirmar Cita').prop('disabled', false);
+          btn.prop('disabled', false).text('Confirmar Cita');
         },
         error: function () {
-          $('#alertBox').removeClass('success').addClass('error alert')
-            .text('Error al enviar. Intenta de nuevo.').show();
+          alert('Error al enviar. Intenta de nuevo.');
           grecaptcha.reset();
-          $('.btn-confirm').text('Confirmar Cita').prop('disabled', false);
+          btn.prop('disabled', false).text('Confirmar Cita');
         }
       });
     });
